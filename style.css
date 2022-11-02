@@ -21,16 +21,16 @@
 }
 :root:has(#light:checked) {
     --background-color: #fdda0a;
-    --border-gradient: linear-gradient(207deg, rgba(24,22,65,1) 31%, rgba(191,6,237,1) 100%);
+    --border-gradient: linear-gradient(207deg, rgba(0,0,0,1) 31%, rgba(77,56,239,1) 100%);
     --font-choice: "OpenDyslexic-Regular";
     --heading-color: #4d38ef;
     --text-color: black;
 }
 :root:has(#BW:checked) {
     --background-color: white;
-    --border-gradient: linear-gradient(207deg, rgba(24,22,65,1) 31%, rgba(191,6,237,1) 100%);
+    --border-gradient:  linear-gradient(207deg, rgba(0,0,0,1) 31%, rgba(255,255,255,1) 100%);
     --font-choice: "OpenDyslexic-Regular";
-    --heading-color: white;
+    --heading-color: black;
     --text-color: black;
 }
 
@@ -41,7 +41,6 @@
 }
 html,
 body{
-    margin: 0;
     font-family: var(--font-choice);
     background: var(--background-color);
     background: var(--border-gradient);
