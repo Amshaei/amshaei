@@ -10,7 +10,28 @@
     --font-choice: "OpenDyslexic-Regular";
     --heading-color: white;
     --text-color: #bf00fe;
-    --svg-filter: filter: invert(17%) sepia(68%) saturate(7312%) hue-rotate(276deg) brightness(108%) contrast(133%);
+}
+
+:root:has(#standard:checked) {
+    --background-color: black;
+    --border-gradient: linear-gradient(207deg, rgba(24,22,65,1) 31%, rgba(191,6,237,1) 100%);
+    --font-choice: "OpenDyslexic-Regular";
+    --heading-color: white;
+    --text-color: #bf00fe;
+}
+:root:has(#light:checked) {
+    --background-color: #fdda0a;
+    --border-gradient: linear-gradient(207deg, rgba(24,22,65,1) 31%, rgba(191,6,237,1) 100%);
+    --font-choice: "OpenDyslexic-Regular";
+    --heading-color: #4d38ef;
+    --text-color: black;
+}
+:root:has(#BW:checked) {
+    --background-color: white;
+    --border-gradient: linear-gradient(207deg, rgba(24,22,65,1) 31%, rgba(191,6,237,1) 100%);
+    --font-choice: "OpenDyslexic-Regular";
+    --heading-color: white;
+    --text-color: #bf00fe;
 }
 
 
@@ -44,7 +65,7 @@ html h1,h2,h3,h4,h5,p{
     border-radius: 2rem;
 }
 #theme-select input[type="radio"] {
-    
+    appearance: none;
     width: 1rem;
     height: 1rem;
     border: 3px solid var(--radio-color, currentColor);
@@ -54,38 +75,16 @@ html h1,h2,h3,h4,h5,p{
     background-color: var(--radio-color);
 }
 
-#theme-select input[type="radio"] #standard {
+#theme-select input[type="radio"]#standard {
     --radio-color: #bf00fe;
 }
-#theme-select input[type="radio"] #light {
+#theme-select input[type="radio"]#light {
     --radio-color: #fdda0a;
 }
-#theme-select input[type="radio"] #BW {
+#theme-select input[type="radio"]#BW {
     --radio-color: white;
 }
 
-
-:root:has(#standard:checked) {
-    --background-color: black;
-    --border-gradient: linear-gradient(207deg, rgba(24,22,65,1) 31%, rgba(191,6,237,1) 100%);
-    --font-choice: "OpenDyslexic-Regular";
-    --heading-color: white;
-    --text-color: #bf00fe;
-}
-:root:has(#light:checked) {
-    --background-color: #fdda0a;
-    --border-gradient: linear-gradient(207deg, rgba(24,22,65,1) 31%, rgba(191,6,237,1) 100%);
-    --font-choice: "OpenDyslexic-Regular";
-    --heading-color: #4d38ef;
-    --text-color: black;
-}
-:root:has(#BW:checked) {
-    --background-color: white;
-    --border-gradient: linear-gradient(207deg, rgba(24,22,65,1) 31%, rgba(191,6,237,1) 100%);
-    --font-choice: "OpenDyslexic-Regular";
-    --heading-color: white;
-    --text-color: #bf00fe;
-}
 
 
 
