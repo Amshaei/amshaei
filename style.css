@@ -149,7 +149,7 @@ label {
     flex-direction: column;
     justify-content: start;
     align-items: top;
-    color: white;
+    color: var(--heading-color);
 }
 .container > div {
     scroll-snap-align: start;
