@@ -4,6 +4,7 @@
 }
 
 :root {
+    --icon-background: #bf00fe;
     --container-height: 60rem;
     --background-color: black;
     --border-gradient: linear-gradient(207deg, rgba(24,22,65,1) 31%, rgba(191,6,237,1) 100%);
@@ -13,6 +14,7 @@
 }
 
 :root:has(#standard:checked) {
+    --icon-background: #bf00fe;
     --background-color: black;
     --border-gradient: linear-gradient(207deg, rgba(24,22,65,1) 31%, rgba(191,6,237,1) 100%);
     --font-choice: "OpenDyslexic-Regular";
@@ -20,6 +22,7 @@
     --text-color: #bf00fe;
 }
 :root:has(#light:checked) {
+    --icon-background: #4d38ef;
     --background-color: #fdda0a;
     --border-gradient: linear-gradient(207deg, rgba(0,0,0,1) 31%, rgba(77,56,239,1) 100%);
     --font-choice: "OpenDyslexic-Regular";
@@ -27,6 +30,7 @@
     --text-color: black;
 }
 :root:has(#BW:checked) {
+    --icon-background: white;
     --background-color: white;
     --border-gradient:  linear-gradient(207deg, rgba(0,0,0,1) 31%, rgba(255,255,255,1) 100%);
     --font-choice: "OpenDyslexic-Regular";
@@ -48,11 +52,12 @@ body{
 }
 #theme-select {
     background-color: var(--background-color);
-    transform: translateY(-80px);
+    transform: translateY(-10rem);
     position: fixed;
     z-index: 3;
     align-self: center;
     color: var(--text-color);
+    border-radius:50%;
 }
 
 #theme-select > fieldset {
@@ -85,7 +90,7 @@ body{
 
 #accessibility {
     border-radius: 5rem;
-    background-color: var(--text-color);
+    background-color: var(--icon-background);
     background-image: url("assets/icons/accessibility.svg");
     background-size: 4rem;
     background-position: center;
