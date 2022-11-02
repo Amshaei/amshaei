@@ -5,6 +5,12 @@
 
 :root {
     --container-height: 60rem;
+    --background-color: black;
+    --border-gradient: linear-gradient(207deg, rgba(24,22,65,1) 31%, rgba(191,6,237,1) 100%);
+    --font-choice: "OpenDyslexic-Regular";
+    --heading-color: white;
+    --text-color: #bf00fe;
+    --svg-filter: filter: invert(17%) sepia(68%) saturate(7312%) hue-rotate(276deg) brightness(108%) contrast(133%);
 }
 
 
@@ -14,16 +20,98 @@
 }
 html,
 body{
-    font-family: "OpenDyslexic-Regular";
-    background: rgb(24,22,65);
-    background: linear-gradient(207deg, rgba(24,22,65,1) 31%, rgba(191,6,237,1) 100%);
+    margin: 0;
+    font-family: var(--font-choice);
+    background: var(--background-color);
+    background: var(--border-gradient);
     overflow: hidden;
 }
 html h1,h2,h3,h4,h5,p{
     opacity: .7;
 }
 
+#theme-select {
+    background-color: var(--background-color);
+    transform: translateY(-80px);
+    position: fixed;
+    z-index: 3;
+    align-self: center;
+    color: var(--text-color);
+}
 
+#theme-select > fieldset {
+    border-color: var(--text-color);
+    border-radius: 2rem;
+}
+#theme-select input[type="radio"] {
+    
+    width: 1rem;
+    height: 1rem;
+    border: 3px solid var(--radio-color, currentColor);
+    border-radius: 50%;
+}
+#theme-select input[type="radio"]:checked {
+    background-color: var(--radio-color);
+}
+
+#theme-select input[type="radio"] #standard {
+    --radio-color: #bf00fe;
+}
+#theme-select input[type="radio"] #light {
+    --radio-color: #fdda0a;
+}
+#theme-select input[type="radio"] #BW {
+    --radio-color: white;
+}
+
+
+:root:has(#standard:checked) {
+    --background-color: black;
+    --border-gradient: linear-gradient(207deg, rgba(24,22,65,1) 31%, rgba(191,6,237,1) 100%);
+    --font-choice: "OpenDyslexic-Regular";
+    --heading-color: white;
+    --text-color: #bf00fe;
+}
+:root:has(#light:checked) {
+    --background-color: #fdda0a;
+    --border-gradient: linear-gradient(207deg, rgba(24,22,65,1) 31%, rgba(191,6,237,1) 100%);
+    --font-choice: "OpenDyslexic-Regular";
+    --heading-color: #4d38ef;
+    --text-color: black;
+}
+:root:has(#BW:checked) {
+    --background-color: white;
+    --border-gradient: linear-gradient(207deg, rgba(24,22,65,1) 31%, rgba(191,6,237,1) 100%);
+    --font-choice: "OpenDyslexic-Regular";
+    --heading-color: white;
+    --text-color: #bf00fe;
+}
+
+
+
+#accessibility {
+    border-radius: 5rem;
+    background-color: var(--text-color);
+    background-image: url("assets/icons/accessibility.svg");
+    background-size: 4rem;
+    background-position: center;
+    background-position-y: -.1rem ;
+    height: 3rem !important;
+    width: 3rem; 
+    border-color: var(--text-color);
+    position: absolute;
+    right: 0;
+    margin: 1rem 2rem 0 0;
+}
+#accessibility:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+}
+#accessibility:active {
+    cursor: pointer;
+    transform: scale(.9);
+    transition: .1s ease-in-out;;
+}
 .navbar {
     min-height: fit-content !important;
     display: flex;
@@ -32,9 +120,9 @@ html h1,h2,h3,h4,h5,p{
 }
 .navbar > a {
     pointer-events: none;
-    color: #bf00fe;
+    color: var(--text-color);
     opacity: 0;
-    transform: translateX(-5rem);
+    transform: translateX(-1rem);
     text-decoration: none;
 }
 .navbar:hover > a {
@@ -44,9 +132,8 @@ html h1,h2,h3,h4,h5,p{
 }
 
 .navbar > a:hover {
-    line-height: 20px;
-    color: white;
-    border-bottom: 1px solid;
+    transform: translateY(-.5rem);
+    color: var(--heading-color);
 }
 label {
     padding-left: 2rem;
@@ -54,7 +141,7 @@ label {
 .container {
     width: 100%;
     height: var(--container-height);
-    background-color: black;
+    background-color: var(--background-color);
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
@@ -87,7 +174,7 @@ label {
     margin-top: 2rem;
     height: 7rem;
     width: 100%;
-    border: 1px solid #bf00fe;
+    border: 1px solid var(--text-color);
     border-radius: 1rem;
     overflow-y: scroll;
     scroll-snap-type: y mandatory;
@@ -110,16 +197,16 @@ label {
 #song-selector a {
     text-align: center;
     text-decoration: none;
-    color: black;
+    color: var(--background-color);
     width: 2rem;
     height: 2rem;
     border-radius: 1rem;
-    background-color: #bf00fe;
-    border: 1px solid #bf00fe;
+    background-color: var(--text-color);
+    border: 1px solid var(--text-color);
     
 }
 #song-selector a:hover {
-    background-color: black;
-    color: #bf00fe;
+    background-color: var(--background-color);
+    color: var(--text-color);
 }
 

@@ -16,8 +16,20 @@
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        
+        <button id="accessibility" onclick="themeDropdown()">
+        </button>
         <div class="container">
+            <form id="theme-select" action="">
+                <fieldset>
+                    <legend>theme</legend>
+                    <label for="theme">standard</label>
+                    <input type="radio" name="theme" id="standard" checked>
+                    <label for="theme">light</label>
+                    <input type="radio" name="theme" id="light">
+                    <label for="theme">B/W</label>
+                    <input type="radio" name="theme" id="BW">
+                </fieldset>
+            </form>
             <div id="welcome">
                 <div class="navbar">
                     <h2>welcome</h2>
