@@ -1,158 +1,521 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
-<html>
+<html lang="en">
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>amshaei</title>
-        <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="style.css">
+        <meta name="description" content="Adam Shay's personal portfolio - Web developer, software engineer, and musician">
+        <title>Adam Shay - Portfolio</title>
+        <style>
+            :root {
+                --bg-color: #f0f0f0;
+                --text-color: #2c2c2c;
+                --accent-color: #b88b3d;
+                --section-bg: #ffffff;
+            }
+
+            [data-theme="light"] {
+                --bg-color: #f0f0f0;
+                --text-color: #2c2c2c;
+                --accent-color: #b88b3d;
+                --section-bg: #ffffff;
+            }
+
+            [data-theme="dark"] {
+                --bg-color: #333333;
+                --text-color:  #E7E5E5;
+                --accent-color: #f5f5f5;
+                --section-bg: #433c46;
+            }
+
+            [data-theme="bw"] {
+                --bg-color: #ffffff;
+                --text-color: #000000;
+                --accent-color: #666666;
+                --section-bg: #f0f0f0;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: system-ui, -apple-system, sans-serif;
+                background: var(--bg-color);
+                color: var(--text-color);
+                line-height: 1.6;
+                transition: all 0.3s ease;
+            }
+
+            .container {
+                max-width: 1200px;
+                margin: 1rem;
+                padding: 1rem;
+            }
+
+            .theme-controls {
+                position: fixed;
+                top: 1rem;
+                right: 1rem;
+                background: var(--section-bg);
+                padding: 0.5rem;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0, 0.1);
+            }
+
+            .navbar {
+                background: var(--section-bg);
+                padding: 1rem;
+                margin-bottom: 2rem;
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+                gap: 2rem;
+            }
+
+            .navbar h2 {
+                margin: 0;
+                color: var(--accent-color);
+            }
+
+            .navbar a {
+                color: var(--text-color);
+                text-decoration: none;
+                transition: color 0.3s ease;
+            }
+
+            .navbar a:hover {
+                color: var(--accent-color);
+            }
+
+            .navbar h4 {
+                margin: 0;
+            }
+
+            .nested-section {
+                background: var(--section-bg);
+                padding: 2rem;
+                border-radius: 8px;
+                margin-bottom: 2rem;
+            }
+
+            /* Carousel styles */
+
+            .carousel {
+                position: relative;
+                overflow: hidden;
+                padding: 1rem 3rem;
+                background: var(--section-bg);
+                border-radius: 8px;
+            }
+
+            .carousel-content {
+                display: flex;
+                transition: transform 0.5s ease-in-out;
+            }
+
+            .carousel-item {
+                min-width: 100%;
+                padding: 1rem;
+                box-sizing: border-box;
+                opacity: 0;
+                transition: opacity 0.3s ease-in-out;
+                display: none;
+            }
+
+            .carousel-item.active {
+                opacity: 1;
+                display: block;
+            }
+
+            .carousel-button {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                background: var(--accent-color);
+                color: white;
+                border: none;
+                padding: 1rem;
+                cursor: pointer;
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: background-color 0.3s ease;
+            }
+
+            .carousel-button:hover {
+                background-color: var(--text-color);
+            }
+
+            .carousel-button.prev {
+                left: 1rem;
+            }
+
+            .carousel-button.next {
+                right: 1rem;
+            }
+
+            /* Project card styles */
+            .project-card {
+                background: var(--bg-color);
+                padding: 2rem;
+                border-radius: 8px;
+                margin-bottom: 1rem;
+            }
+
+            .project-card h3 {
+                margin-top: 0;
+                color: var(--accent-color);
+            }
+
+            .project-card a {
+                display: inline-block;
+                margin-top: 1rem;
+                color: var(--accent-color);
+                text-decoration: none;
+                transition: color 0.3s ease;
+            }
+
+
+            /* Navigation dots */
+            .carousel-dots {
+                display: flex;
+                justify-content: center;
+                gap: 0.5rem;
+                margin-top: 1rem;
+            }
+
+            .carousel-dot {
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background: var(--bg-color);
+                border: 2px solid var(--accent-color);
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            .carousel-dot.active {
+                background: var(--accent-color);
+            }
+
+            #music-content {
+                display: grid;
+                gap: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            #music-content div {
+                background: var(--bg-color);
+                padding: 1rem;
+                border-radius: 8px;
+            }
+
+            audio {
+                width: 100%;
+                margin-top: 0.5rem;
+            }
+
+            #song-selector {
+                display: flex;
+                gap: 1rem;
+                justify-content: center;
+                margin-top: 1rem;
+            }
+
+            #song-selector a {
+                color: var(--text-color);
+                text-decoration: none;
+                padding: 0.5rem 1rem;
+                background: var(--bg-color);
+                border-radius: 4px;
+                transition: all 0.3s ease;
+            }
+
+            #song-selector a:hover {
+                background: var(--accent-color);
+                color: white;
+            }
+
+            /* Music player styles */
+            .music-item {
+                background: var(--bg-color);
+                padding: 2rem;
+                border-radius: 8px;
+                text-align: center;
+            }
+
+            .music-item h3 {
+                margin-top: 0;
+                color: var(--accent-color);
+            }
+
+            .project-grid {
+                display: grid;
+                padding: 1.5rem;
+                border-radius: 8px;
+            }
+
+            .social-links {
+                display: flex;
+                gap: 2rem;
+                justify-content: center;
+            }
+
+            .social-links a {
+                color: var(--text-color);
+                text-decoration: none;
+                padding: 1rem;
+                background: var(--bg-color);
+                border-radius: 8px;
+                transition: all 0.3s ease;
+            }
+
+            .social-links a:hover {
+                background: var(--accent-color);
+                color: white;
+            }
+        </style>
     </head>
     <body>
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-        <button id="accessibility" onclick="themeDropdown()">
-        </button>
+        <div class="theme-controls">
+            <fieldset>
+                <legend>theme</legend>
+                <div>
+                    <input type="radio" id="light" name="theme" value="light">
+                    <label for="light">light</label>
+                </div>
+                <div>
+                    <input type="radio" id="dark" name="theme" value="dark">
+                    <label for="dark">dark</label>
+                </div>
+                <div>
+                    <input type="radio" id="bw" name="theme" value="bw">
+                    <label for="bw">b/w</label>
+                </div>
+            </fieldset>
+        </div>
         <div class="container">
-            <form id="theme-select" action="">
-                <fieldset>
-                    <legend>theme</legend>
-                    <label hidden for="theme">standard</label>
-                    <input type="radio" name="theme" id="standard" checked>
-                    <label hidden for="theme">light</label>
-                    <input type="radio" name="theme" id="light">
-                    <label hidden for="theme">B/W</label>
-                    <input type="radio" name="theme" id="BW">
-                </fieldset>
-            </form>
+
             <div id="welcome">
                 <div class="navbar">
                     <h2>welcome</h2>
                     <a href="#about"><h4>about</h4></a>
-                    <a href="#music"><h4>music</h4></a>
                     <a href="#projects"><h4>projects</h4></a>
-                    <a href="#social"><h4>social</h4></a>
-                </div>
-            </div>
-            <div id="about">
-                <div class="navbar">
-                    <h2>about</h2>
                     <a href="#music"><h4>music</h4></a>
-                    <a href="#projects"><h4>projects</h4></a>
                     <a href="#social"><h4>social</h4></a>
-                    <a href="#welcome"><h4>welcome</h4></a>
                 </div>
                 <div class="nested-section">
-                    <p>my name is adam shay. </p>
+                    <h1>hello, i'm adam shay.</h1>
+                    <p>welcome to my digital playground.</p>
+                </div>
+            </div>
+
+            <div id="about">
+                <div class="nested-section">
+                    <p>my name is adam shay.</p>
                     <p>i am a web developer, software engineer, musician, and i am human.</p>
                     <p>the purpose of this site is to serve as a playground.</p>
                     <p>the contents will show what i am learning and what i have done.</p>
                     <p>:)</p>
                 </div>
-                
             </div>
+
             <div id="music">
-                <div class="navbar">
-                    <h2>music</h2>
-                    <a href="#projects"><h4>projects</h4></a>
-                    <a href="#social"><h4>social</h4></a>
-                    <a href="#welcome"><h4>welcome</h4></a>
-                    <a href="#about"><h4>about</h4></a>
-                </div>
-                <div class="nested-section">
-                    <div id="music-content">
-                        <div>
-                            <label>
+                <div class="carousel" id="music-carousel">
+                    <button class="carousel-button prev" onclick="moveCarousel('music', -1)">👈</button>
+                    <button class="carousel-button next" onclick="moveCarousel('music', 1)">👉</button>
+
+                    <div class="carousel-content">
+                        <div class="carousel-item active">
+                            <div class="music-item">
                                 <h3>overflow</h3>
-                            </label>
-                            <audio controls>
-                                <source src="https://www.dropbox.com/s/bx8kt48cw2wpse2/Overflow.wav?raw=1" type="audio/wav"> 
-                            </audio>
+                                <audio controls>
+                                    <source src="https://www.dropbox.com/s/bx8kt48cw2wpse2/Overflow.wav?raw=1" type="audio/wav"> 
+                                </audio>
+                            </div>
                         </div>
-                        <div>
-                            <label>
+                        <div class="carousel-item">
+                            <div class="music-item">
                                 <h3>coinflip</h3>
-                            </label>
-                            <audio controls>
-                                <source src="https://www.dropbox.com/s/s73tpptnspldfbm/Coin%20Flip.wav?raw=1" type="audio/wav"> 
-                            </audio>
+                                <audio controls>
+                                    <source src="https://www.dropbox.com/s/s73tpptnspldfbm/Coin%20Flip.wav?raw=1" type="audio/wav"> 
+                                </audio>
+                            </div>
                         </div>
-                        <div>
-                            <label>
+                        <div class="carousel-item">
+                            <div class="music-item">
                                 <h3>dysphoritorium</h3>
-                            </label>
-                            <audio controls>
-                                <source src="https://www.dropbox.com/s/411wrsdu6a0flub/Dysphoritorium.wav?raw=1" type="audio/wav"> 
-                            </audio>
+                                <audio controls>
+                                    <source src="https://www.dropbox.com/s/411wrsdu6a0flub/Dysphoritorium.wav?raw=1" type="audio/wav"> 
+                                </audio>
+                            </div>
                         </div>
-                        <div>
-                            <label>
+                        <div class="carousel-item">
+                            <div class="music-item">
                                 <h3>thoseeyes</h3>
-                            </label>
-                            <audio controls>
-                                <source src="https://www.dropbox.com/s/6alttslxep1e4lj/Those%20To%20Look%20To%20v1.mp3?raw=1" type="audio/mp3"> 
-                            </audio>
+                                <audio controls>
+                                    <source src="https://www.dropbox.com/s/6alttslxep1e4lj/Those%20To%20Look%20To%20v1.mp3?raw=1" type="audio/mp3"> 
+                                </audio>
+                            </div>
                         </div>
-                        <div>
-                            <label>
+                        <div class="carousel-item">
+                            <div class="music-item">
                                 <h3>saltedsapphire</h3>
-                            </label>
-                            <audio controls>
-                                <source src="https://www.dropbox.com/s/jo0xiunwb1oscsb/Salted%20Sapphire.wav?raw=1" type="audio/wav"> 
-                            </audio>
+                                <audio controls>
+                                    <source src="https://www.dropbox.com/s/jo0xiunwb1oscsb/Salted%20Sapphire.wav?raw=1" type="audio/wav"> 
+                                </audio>
+                            </div>
                         </div>
-                        <div>
-                            <label>
+                        <div class="carousel-item">
+                            <div class="music-item">
                                 <h3>plaqueal</h3>
-                            </label>
-                            <audio controls>
-                                <source src="https://www.dropbox.com/s/ywn7undbne9vosm/Plaqueal%20v1.mp3?raw=1" type="audio/mp3"> 
-                            </audio>
+                                <audio controls>
+                                    <source src="https://www.dropbox.com/s/ywn7undbne9vosm/Plaqueal%20v1.mp3?raw=1" type="audio/mp3"> 
+                                </audio>
+                            </div>
                         </div>
-                        <div>
-                            <label>
+                        <div class="carousel-item">
+                            <div class="music-item">
                                 <h3>cored</h3>
-                            </label>
-                            <audio controls>
-                                <source src="https://www.dropbox.com/s/kuminu0kc39k2cy/Cored%20v2.mp3?raw=1" type="audio/mp3"> 
-                            </audio>
+                                <audio controls>
+                                    <source src="https://www.dropbox.com/s/kuminu0kc39k2cy/Cored%20v2.mp3?raw=1" type="audio/mp3"> 
+                                </audio>
+                            </div>
                         </div>
                     </div>
-                    <div id="song-selector">
-                        <a href="javascript:songSelect(0)">1</a>
-                        <a href="javascript:songSelect(1)">2</a>
-                        <a href="javascript:songSelect(2)">3</a>
-                        <a href="javascript:songSelect(3)">4</a>
-                        <a href="javascript:songSelect(4)">5</a>
-                        <a href="javascript:songSelect(5)">6</a>
-                        <a href="javascript:songSelect(6)">7</a>
-                    </div>
-                </div>
-            </div>
-            <div id="projects">
-                <div class="navbar">
-                    <h2>projects</h2>
-                    <a href="#social"><h4>social</h4></a>
-                    <a href="#welcome"><h4>welcome</h4></a>
-                    <a href="#about"><h4>about</h4></a>
-                    <a href="#music"><h4>music</h4></a>
-                </div>
-            </div>
-            <div id="social">
-                <div class="navbar">
-                    <h2>social</h2>
-                    <a href="#welcome"><h4>welcome</h4></a>
-                    <a href="#about"><h4>about</h4></a>
-                    <a href="#music"><h4>music</h4></a>
-                    <a href="#projects"><h4>projects</h4></a>
+                    <div class="carousel-dots"></div>
                 </div>
             </div>
 
-        <script src="script.js" async defer></script>
+            <div id="projects">
+                <div class="carousel" id="projects-carousel">
+                    <button class="carousel-button prev" onclick="moveCarousel('projects', -1)">👈</button>
+                    <button class="carousel-button next" onclick="moveCarousel('projects', 1)">👉</button>
+
+                    <div class="carousel-content">
+                        <div class="carousel-item active">
+                            <div class="project-card">
+                                <h3>Project 1</h3>
+                                <p>Description</p>
+                                <a href="#">View Project 👉</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-dots"></div>
+                </div>
+            </div>
+
+            <div id="social">
+                <div class="nested-section">
+                    <div class="social-links">
+                        <a href="https://github.com/amshaei">GitHub</a>
+                        <a href="https://www.linkedin.com/in/adam-shay-826a0817a/">LinkedIn</a>
+                        <a href="https://twitter.com/yourusername">Twitter</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <script>
+            // Theme switching
+            const themeRadios = document.querySelectorAll('input[name="theme"]');
+
+            window.onload = function() {
+                initializeCarousel('music');
+                initializeCarousel('projects');
+
+                // Set audio playback rates
+                document.querySelectorAll('audio').forEach(audio => {
+                    audio.defaultPlaybackRate = 1.25;
+                    audio.playbackRate = 1.25;
+                });
+
+                // Load saved theme
+                const savedTheme = localStorage.getItem('theme') || 'light';
+                document.body.setAttribute('data-theme', savedTheme);
+
+                // check the corresponding radio button
+                const savedRadio = document.querySelector(`input[value="${savedTheme}"]`);
+                if (savedRadio) {
+                    savedRadio.checked = true;
+                }
+            }
+
+            themeRadios.forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    const selectedTheme = e.target.value;
+                    document.body.setAttribute('data-theme', selectedTheme);
+                    localStorage.setItem('theme', selectedTheme);
+                })
+            });
+
+            // Carousel function - update this to dynamically get number of songs and projects
+
+            const musicCount = document.querySelectorAll('div[class="music-item"]').length;
+            const projectCount = document.querySelectorAll('div[class="project-card"]').length;
+
+            const carousels = {
+                music: { 
+                    currentIndex: 0,
+                    totalItems: musicCount
+                },
+                projects: {
+                    currentIndex: 0,
+                    totalItems: projectCount
+                }
+            };
+
+            function initializeCarousel(type) {
+                const carousel = document.querySelector(`#${type}-carousel`);
+                const dotsContainer = carousel.querySelector('.carousel-dots');
+
+                dotsContainer.innerHTML = '';
+
+                for (let i = 0; i < carousels[type].totalItems; i++) {
+                    const dot = document.createElement('div');
+                    dot.classList.add('carousel-dot');
+                    if (i === 0) dot.classList.add('active');
+                    dot.onclick = () => {
+                        const oldIndex = carousels[type].currentIndex;
+                        carousels[type].currentIndex = i;
+                        updateCarousel(type, oldIndex, i);
+                    };
+                    dotsContainer.appendChild(dot);
+                }
+            }
+
+            function moveCarousel(type, direction) {
+                const carousel = carousels[type];
+                const oldIndex = carousel.currentIndex;
+
+                carousel.currentIndex = (carousel.currentIndex + direction + carousel.totalItems) % carousel.totalItems;
+
+                updateCarousel(type, oldIndex, carousel.currentIndex);
+            }
+
+            function updateCarousel(type, oldIndex, newIndex) {
+                const items = document.querySelectorAll(`#${type}-carousel .carousel-item`);
+                const dots = document.querySelectorAll(`#${type}-carousel .carousel-dot`);
+
+                items[oldIndex].classList.remove('active');
+                items[newIndex].classList.add('active');
+
+                dots[oldIndex].classList.remove('active');
+                dots[newIndex].classList.add('active');
+            }
+
+            // Song selection
+            function songSelect(index) {
+                const audioElements = document.querySelectorAll('audio');
+                audioElements.forEach(audio => audio.pause());
+                
+                const oldIndex = carousels['music'].currentIndex;
+                carousels['music'].currentIndex = index;
+                updateCarousel('music', oldIndex, index);
+                
+                audioElements[index].play();
+            }
+        </script>
     </body>
 </html>
