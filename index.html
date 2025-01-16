@@ -7,12 +7,17 @@
         <title>Adam Shay - Portfolio</title>
         <style>
             :root {
-                --bg-color: #f0f0f0;
+                --bg-color: #A79578;
                 --text-color: #2c2c2c;
-                --accent-color: #b88b3d;
-                --section-bg: #ffffff;
+                --accent-color: #837A69; 
+                --section-bg: #85492C;
             }
-
+            [data-theme="dev"] {
+                --bg-color: #A79578;
+                --text-color: #2c2c2c;
+                --accent-color: #342D21; 
+                --section-bg: #85492C;
+            }
             [data-theme="light"] {
                 --bg-color: #f0f0f0;
                 --text-color: #2c2c2c;
@@ -36,7 +41,7 @@
 
             body {
                 margin: 0;
-                padding: 0;
+                padding: 0 0 80px 0;
                 font-family: system-ui, -apple-system, sans-serif;
                 background: var(--bg-color);
                 color: var(--text-color);
@@ -46,10 +51,11 @@
 
             .container {
                 max-width: 1200px;
-                margin: 1rem;
+                margin: 1rem auto;
                 padding: 1rem;
             }
 
+            /* Theming */
             .theme-controls {
                 position: fixed;
                 top: 1rem;
@@ -59,6 +65,8 @@
                 border-radius: 8px;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0, 0.1);
             }
+
+            /* Navigation */
 
             .navbar {
                 background: var(--section-bg);
@@ -88,6 +96,77 @@
             .navbar h4 {
                 margin: 0;
             }
+
+            /* Section */
+
+            .loading {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                background-color: var(--bg-color);
+                opacity: 1;
+                transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+                z-index: 1000;
+                visibility: visible;
+            }
+
+            .loading.fade-out {
+                opacity: 0;
+                visibility: hidden;
+            }
+
+            .loading:before,
+            .loading:after {
+                content: "";
+                position: absolute;
+                left: 50%;
+                min-width: 300vw;
+                min-height: 300vw;
+                background-color: var(--accent-color);
+                animation-name: rotate;
+                animation-iteration-count: infinite;
+                animation-timing-function: linear;
+                z-index: -1;
+                transition: opacity 0.8s ease-in-out;
+            }
+
+            .loading.fade-out:before,
+            .loading.fade-out:after {
+                opacity: 0;
+            }
+            
+            .loading:before {
+                bottom: 15vh;
+                border-radius: 45%;
+                animation-duration: 10s;
+            }
+
+            .loading:after {
+                bottom: 12vh;
+                opacity: 0.5;
+                border-radius: 47%;
+                animation-duration: 10s;
+            }
+
+            @keyframes rotate {
+                0% {
+                    transform: translate(-50%, 0) rotateZ(0deg);
+                }
+                50% {
+                    transform: translate(-50%, -2%) rotateZ(180deg);
+                }
+                100% {
+                    transform: translate(-50%, 0%) rotateZ(360deg);
+                }
+            }
+        
+
 
             .nested-section {
                 background: var(--section-bg);
@@ -199,42 +278,80 @@
                 background: var(--accent-color);
             }
 
-            #music-content {
-                display: grid;
-                gap: 1.5rem;
-                margin-bottom: 1.5rem;
-            }
-
-            #music-content div {
-                background: var(--bg-color);
+            /* Music */
+            #fixed-player {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: var(--section-bg);
                 padding: 1rem;
-                border-radius: 8px;
+                box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
+                border-top: 1px solid var(--accent-color);
             }
 
-            audio {
-                width: 100%;
-                margin-top: 0.5rem;
-            }
-
-            #song-selector {
+            .player-container {
+                max-width: 1200px;
+                margin: 0 auto;
                 display: flex;
+                align-items: center;
                 gap: 1rem;
-                justify-content: center;
-                margin-top: 1rem;
             }
 
-            #song-selector a {
-                color: var(--text-color);
-                text-decoration: none;
-                padding: 0.5rem 1rem;
+            .player-info {
+                flex: 1;
+                min-width: 120px;
+            }
+
+            .player-controls {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .player-progress {
+                flex: 2;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .progress-bar {
+                flex: 1;
+                height: 4px;
                 background: var(--bg-color);
-                border-radius: 4px;
-                transition: all 0.3s ease;
+                border-radius: 2px;
+                cursor: pointer;
+                position: relative;
             }
 
-            #song-selector a:hover {
+            .progress-bar-fill {
+                position: absolute;
+                left: 0;
+                top: 0;
+                height: 100%;
                 background: var(--accent-color);
-                color: white;
+                border-radius: 2px;
+            }
+
+            .time-display {
+                font-size: 0.8rem;
+                min-width: 45px;
+            }
+
+            .control-button {
+                background: none;
+                border: none;
+                color: var(--text-color);
+                cursor: pointer;
+                font-size: 1.2rem;
+                padding: 0.5rem;
+                transition: color 0.3s ease;
+            }
+
+            .control-button:hover {
+                color: var(--accent-color);
             }
 
             /* Music player styles */
@@ -282,6 +399,10 @@
             <fieldset>
                 <legend>theme</legend>
                 <div>
+                    <input type="radio" id="dev" name="theme" value="dev">
+                    <label for="dev">dev</label>
+                </div>
+                <div>
                     <input type="radio" id="light" name="theme" value="light">
                     <label for="light">light</label>
                 </div>
@@ -295,134 +416,206 @@
                 </div>
             </fieldset>
         </div>
+        <div class="loading">
+            
+        </div>
         <div class="container">
-
-            <div id="welcome">
-                <div class="navbar">
-                    <h2>welcome</h2>
-                    <a href="#about"><h4>about</h4></a>
-                    <a href="#projects"><h4>projects</h4></a>
-                    <a href="#music"><h4>music</h4></a>
-                    <a href="#social"><h4>social</h4></a>
-                </div>
-                <div class="nested-section">
-                    <h1>hello, i'm adam shay.</h1>
-                    <p>welcome to my digital playground.</p>
-                </div>
+            <div class="navbar">
+                <h2>welcome</h2>
+                <a href="#about"><h4>about</h4></a>
+                <a href="#projects"><h4>projects</h4></a>
+                <a href="#music"><h4>music</h4></a>
+                <a href="#social"><h4>social</h4></a>
             </div>
+            <div>
 
-            <div id="about">
-                <div class="nested-section">
-                    <p>my name is adam shay.</p>
-                    <p>i am a web developer, software engineer, musician, and i am human.</p>
-                    <p>the purpose of this site is to serve as a playground.</p>
-                    <p>the contents will show what i am learning and what i have done.</p>
-                    <p>:)</p>
-                </div>
-            </div>
-
-            <div id="music">
-                <div class="carousel" id="music-carousel">
-                    <button class="carousel-button prev" onclick="moveCarousel('music', -1)">👈</button>
-                    <button class="carousel-button next" onclick="moveCarousel('music', 1)">👉</button>
-
-                    <div class="carousel-content">
-                        <div class="carousel-item active">
-                            <div class="music-item">
-                                <h3>overflow</h3>
-                                <audio controls>
-                                    <source src="https://www.dropbox.com/s/bx8kt48cw2wpse2/Overflow.wav?raw=1" type="audio/wav"> 
-                                </audio>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="music-item">
-                                <h3>coinflip</h3>
-                                <audio controls>
-                                    <source src="https://www.dropbox.com/s/s73tpptnspldfbm/Coin%20Flip.wav?raw=1" type="audio/wav"> 
-                                </audio>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="music-item">
-                                <h3>dysphoritorium</h3>
-                                <audio controls>
-                                    <source src="https://www.dropbox.com/s/411wrsdu6a0flub/Dysphoritorium.wav?raw=1" type="audio/wav"> 
-                                </audio>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="music-item">
-                                <h3>thoseeyes</h3>
-                                <audio controls>
-                                    <source src="https://www.dropbox.com/s/6alttslxep1e4lj/Those%20To%20Look%20To%20v1.mp3?raw=1" type="audio/mp3"> 
-                                </audio>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="music-item">
-                                <h3>saltedsapphire</h3>
-                                <audio controls>
-                                    <source src="https://www.dropbox.com/s/jo0xiunwb1oscsb/Salted%20Sapphire.wav?raw=1" type="audio/wav"> 
-                                </audio>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="music-item">
-                                <h3>plaqueal</h3>
-                                <audio controls>
-                                    <source src="https://www.dropbox.com/s/ywn7undbne9vosm/Plaqueal%20v1.mp3?raw=1" type="audio/mp3"> 
-                                </audio>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="music-item">
-                                <h3>cored</h3>
-                                <audio controls>
-                                    <source src="https://www.dropbox.com/s/kuminu0kc39k2cy/Cored%20v2.mp3?raw=1" type="audio/mp3"> 
-                                </audio>
-                            </div>
-                        </div>
+                
+                <div id="welcome">
+                    <div class="nested-section">
+                        <h1>hello, i'm adam shay.</h1>
+                        <p>welcome to my digital playground.</p>
                     </div>
-                    <div class="carousel-dots"></div>
                 </div>
-            </div>
 
-            <div id="projects">
-                <div class="carousel" id="projects-carousel">
-                    <button class="carousel-button prev" onclick="moveCarousel('projects', -1)">👈</button>
-                    <button class="carousel-button next" onclick="moveCarousel('projects', 1)">👉</button>
+                <div id="about">
+                    <div class="nested-section">
+                        <p>my name is adam shay.</p>
+                        <p>i am a web developer, software engineer, musician, and i am human.</p>
+                        <p>the purpose of this site is to serve as a playground.</p>
+                        <p>the contents will show what i am learning and what i have done.</p>
+                        <p>:)</p>
+                    </div>
+                </div>
 
-                    <div class="carousel-content">
-                        <div class="carousel-item active">
-                            <div class="project-card">
-                                <h3>Project 1</h3>
-                                <p>Description</p>
-                                <a href="#">View Project 👉</a>
+                <div id="music">
+                </div>
+
+                <div id="projects">
+                    <div class="carousel" id="projects-carousel">
+                        <button class="carousel-button prev" onclick="moveCarousel('projects', -1)">👈</button>
+                        <button class="carousel-button next" onclick="moveCarousel('projects', 1)">👉</button>
+
+                        <div class="carousel-content">
+                            <div class="carousel-item active">
+                                <div class="project-card">
+                                    <h3>Project 1</h3>
+                                    <p>Description</p>
+                                    <a href="#">View Project 👉</a>
+                                </div>
                             </div>
                         </div>
+                        <div class="carousel-dots"></div>
                     </div>
-                    <div class="carousel-dots"></div>
                 </div>
-            </div>
 
-            <div id="social">
-                <div class="nested-section">
-                    <div class="social-links">
-                        <a href="https://github.com/amshaei">GitHub</a>
-                        <a href="https://www.linkedin.com/in/adam-shay-826a0817a/">LinkedIn</a>
-                        <a href="https://twitter.com/yourusername">Twitter</a>
+                <div id="social">
+                    <div class="nested-section">
+                        <div class="social-links">
+                            <a href="https://github.com/amshaei">GitHub</a>
+                            <a href="https://www.linkedin.com/in/adam-shay-826a0817a/">LinkedIn</a>
+                        </div>
                     </div>
                 </div>
             </div>
-
+        </div>
+        <div id="fixed-player">
+            <div class="player-container">
+                <div class="player-info">
+                    <h4 id="current-track-title">No track selected</h4>
+                </div>    
+                <div class="player-controls">
+                    <button class="control-button" id="prev-button">⏪</button>
+                    <button class="control-button" id="play-button">▶️</button>
+                    <button class="control-button" id="next-button">⏩</button>
+                </div>
+                <div class="player-progress">
+                    <span class="time-display" id="current-time">0:00</span>
+                    <div class="progress-bar" id="progress-bar">
+                        <div class="progress-bar-fill" id="progress-bar-fill"></div>
+                    </div>
+                    <span class="time-display" id="duration">0:00</span>
+                </div>
+                <audio id="audio-player"></audio>
+            </div>
         </div>
         <script>
+
+            const audioPlayer = document.getElementById('audio-player');
+            const playButton = document.getElementById('play-button');
+            const prevButton = document.getElementById('prev-button');
+            const nextButton = document.getElementById('next-button');
+            const progressBar = document.getElementById('progress-bar');
+            const progressBarFill = document.getElementById('progress-bar-fill');
+            const currentTimeDisplay = document.getElementById('current-time');
+            const durationDisplay = document.getElementById('duration');
+            const trackTitle = document.getElementById('current-track-title');
+
+            const tracks = [
+                {
+                    title: 'overflow',
+                    url: 'https://www.dropbox.com/s/bx8kt48cw2wpse2/Overflow.wav?raw=1'
+                },
+                {
+                    title: 'coinflip',
+                    url: 'https://www.dropbox.com/s/s73tpptnspldfbm/Coin%20Flip.wav?raw=1'
+                },
+                {
+                    title: 'dysphoritorium',
+                    url: 'https://www.dropbox.com/s/411wrsdu6a0flub/Dysphoritorium.wav?raw=1'
+                },
+                {
+                    title: 'thoseeyes',
+                    url: 'https://www.dropbox.com/s/6alttslxep1e4lj/Those%20To%20Look%20To%20v1.mp3?raw=1'
+                },
+                {
+                    title: 'saltedsapphire',
+                    url: 'https://www.dropbox.com/s/jo0xiunwb1oscsb/Salted%20Sapphire.wav?raw=1'
+                },
+                {
+                    title: 'plaqueal',
+                    url: 'https://www.dropbox.com/s/ywn7undbne9vosm/Plaqueal%20v1.mp3?raw=1'
+                },
+                {
+                    title: 'cored',
+                    url: 'https://www.dropbox.com/s/kuminu0kc39k2cy/Cored%20v2.mp3?raw=1'
+                }
+            ];
+
+            let currentTrackIndex = 0;
+            
+            function loadTrack(index) {
+                const track = tracks[index];
+                audioPlayer.src = track.url;
+                trackTitle.textContent = track.title;
+                currentTrackIndex = index;
+            }
+
+            function togglePlay() {
+                if (audioPlayer.paused) {
+                    audioPlayer.play();
+                    playButton.textContent = '⏸️'
+                } else {
+                    audioPlayer.pause();
+                    playButton.textContent = '▶️';
+                }
+            }
+
+            function updateProgress() {
+                const percent = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+                progressBarFill.style.width = percent + '%';
+                currentTimeDisplay.textContent = formatTime(audioPlayer.currentTime);
+                durationDisplay.textContent = formatTime(audioPlayer.duration);
+            }
+
+            function formatTime(seconds) {
+                const minutes = Math.floor(seconds / 60);
+                const remainingSeconds = Math.floor(seconds % 60);
+                return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+            }
+
+            function setProgress(e) {
+                const width = progressBar.clientWidth;
+                const clickX = e.offsetX;
+                const duration = audioPlayer.duration;
+                audioPlayer.currentTime = (clickX/ width) * duration;
+            }
+
+            playButton.addEventListener('click', togglePlay);
+            audioPlayer.addEventListener('timeupdate', updateProgress);
+            progressBar.addEventListener('click', setProgress);
+
+            prevButton.addEventListener('click', () => {
+                currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
+                loadTrack(currentTrackIndex);
+                if (!audioPlayer.paused) {
+                    audioPlayer.play();
+                }
+            });
+
+            nextButton.addEventListener('click', () => {
+                currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+                loadTrack(currentTrackIndex);
+                if (!audioPlayer.paused) {
+                    audioPlayer.play();
+                }
+            })
+
+            audioPlayer.addEventListener('ended', () => {
+                currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+                loadTrack(currentTrackIndex);
+                audioPlayer.play();
+            });
+
+            loadTrack(0);
+
+            let isLoading = false;
+
             // Theme switching
             const themeRadios = document.querySelectorAll('input[name="theme"]');
 
             window.onload = function() {
-                initializeCarousel('music');
+                isLoading = true;
+                // initializeCarousel('music');
                 initializeCarousel('projects');
 
                 // Set audio playback rates
@@ -440,6 +633,17 @@
                 if (savedRadio) {
                     savedRadio.checked = true;
                 }
+
+                // Finish loading
+                setTimeout(() => {
+                    const loadingScreen = document.querySelector('.loading');
+                    loadingScreen.classList.add('fade-out');
+
+                    loadingScreen.addEventListener('transitioned', () => {
+                        loadingScreen.style.display = 'none';
+                    }, { once: true });
+                    isLoading = false;
+                }, 500);
             }
 
             themeRadios.forEach(radio => {
@@ -507,14 +711,9 @@
 
             // Song selection
             function songSelect(index) {
-                const audioElements = document.querySelectorAll('audio');
-                audioElements.forEach(audio => audio.pause());
-                
-                const oldIndex = carousels['music'].currentIndex;
-                carousels['music'].currentIndex = index;
-                updateCarousel('music', oldIndex, index);
-                
-                audioElements[index].play();
+                loadTrack(index);
+                audioPlayer.play();
+                playButton.textContent = "⏸️"
             }
         </script>
     </body>
