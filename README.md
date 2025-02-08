@@ -3,7 +3,7 @@
 ## About Me
 name: adam michael shay a.k.a. amshaei  
 pronouns: he/they   
-age: 22   
+age: 24   
 
 ### Interests
 - software/web/game dev, design, info/project management
