@@ -3,5 +3,6 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-    site: 'https://amshaei.github.io/amshaei',
+    site: 'https://amshaei.github.io',
+    base: '/amshaei/'
 });
