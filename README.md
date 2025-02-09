@@ -12,7 +12,7 @@ age: 24
 
 
 ## 🚀 Personal Site Structure
-[amshaei - Home](https://amshaei.github.io/amshaei/) 
+[amshaei - Home](https://amshaei.github.io/amshaei/)   
 My GitHub Pages site was built using the Astro Minimal template.
 
 Inside of this Astro project, you'll see the following folders and files:
