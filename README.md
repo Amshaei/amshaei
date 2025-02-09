@@ -11,8 +11,9 @@ age: 24
 - running, calisthenics, wellness
 
 
-## 🚀 Project Structure
-This page was build using the Astro Minimal template.
+## 🚀 Personal Site Structure
+[amshaei - Home](https://amshaei.github.io/amshaei/) 
+My GitHub Pages site was built using the Astro Minimal template.
 
 Inside of this Astro project, you'll see the following folders and files:
 
