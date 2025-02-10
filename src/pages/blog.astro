@@ -1,7 +1,29 @@
 ---
 import Layout from "../layouts/Layout.astro"
+import { supabase } from "../../lib/supabase"
+
+// Fetch posts at build time
+const {data: posts, error } = await supabase
+    .from('posts')
+    .select('*')
+    .eq('is_published', true)
+
+// Default to empty array
+const blogPosts = posts || [];
 ---
 <Layout title="Blog">
     <h1>learning blog</h1>
     <p>Here you will find my various project documents, my thoughts and insights, my poorly worded rationales, and overall a timeline of growth and love.</p>
+
+    {blogPosts.length === 0 ? (
+        <p>No posts found</p>
+    ): (
+        <ul>
+            {blogPosts.map(post => (
+                <li>
+                    <a href={`${import.meta.env.BASE_URL}/posts/${post.slug}`}>{post.title} - {(new Date(post.created_at)).toLocaleString()}</a>
+                </li>
+            ))}
+        </ul>
+    )}
 </Layout>
