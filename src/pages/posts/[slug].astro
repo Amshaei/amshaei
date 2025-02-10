@@ -1,0 +1,34 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import { supabase } from '../../../lib/supabase'
+import { marked } from 'marked';
+
+// Tell Astro what paths to generate
+export async function getStaticPaths() {
+    // Fetch all published posts
+    const { data: posts, error } = await supabase
+        .from('posts')
+        .select('*')
+        .eq('is_published', true);
+
+    if (error || !posts) {
+        console.log('Error fetching posts:', error);
+        return [];
+    }
+
+    // Return an array of objects with params for each post
+    return posts.map(post => ({
+        params: { slug: post.slug },
+        props: { post }
+    }));
+}
+
+const { post } = Astro.props;
+const htmlContent = marked(post.content);
+---
+<Layout title={post.title}>
+    <article>
+        <h1>{post.title}</h1>
+        <div set:html={htmlContent} />
+    </article>
+</Layout>

@@ -1,10 +1,16 @@
 ---
 const links = [
     { href: import.meta.env.BASE_URL, label: 'Home' },
-    { href: import.meta.env.BASE_URL + 'about/', label: 'About' },
-    { href: import.meta.env.BASE_URL + 'blog/', label: 'Blog' }
+    { href: import.meta.env.BASE_URL + '/about/', label: 'About' },
+    { href: import.meta.env.BASE_URL + '/blog/', label: 'Blog' }
 ];
 ---
+<style>
+    nav {
+        display: flex;
+        gap: 0.5rem;
+    }
+</style>
 <nav>
     {links.map(link => (
         <a href={link.href}>{link.label}</a>
