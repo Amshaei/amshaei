@@ -1,5 +1,7 @@
 ---
 import Nav from "../components/Nav.astro"
+import PetLoader from "../components/PetLoader.astro";
+
 interface Props {
     title: string;
 }
@@ -13,11 +15,19 @@ const { title } = Astro.props;
         <meta name="viewport" content="width=device-width" />
         <meta name="generator" content={Astro.generator} />
         <title>{title} | amshaei.dev</title>
+        <style>
+            body {
+                margin: 0;
+                overflow: hidden;
+                height: 100vh;
+            }
+        </style>
     </head>
     <body>
         <Nav />
         <main>
             <slot />
         </main>
+        <PetLoader />
     </body>
 </html>
